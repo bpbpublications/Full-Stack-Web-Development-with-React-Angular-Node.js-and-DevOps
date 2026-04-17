@@ -2,7 +2,7 @@
 
 Build scalable frontend architectures using React hooks and Angular services while integrating Node.js backends and RESTful API communication layers.
 
-This is the repository for [Full Stack Web Development with React, Angular, Node.js, and DevOps](https://bpbonline.com/products/full-stack-web-development-with-react-angular-node-js-and-devops-1?variant=45056646054088),published by BPB Publications.
+This is the repository for [Full Stack Web Development with React, Angular, Node.js, and DevOps](https://bpbonline.com/products/full-stack-web-development-with-react-angular-node-js-and-devops-1?variant=45056646054088), published by BPB Publications.
 
 <img src="9789365891249.jpg">
 
