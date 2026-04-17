@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 08 — DOM Image Replacement + dataset</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <div class="card">
+      <h1>Example 08 — DOM Image Replacement + dataset</h1>
+      
+<p class="muted">Click buttons to change the image and read dataset attributes.</p>
+
+<img id="img" src="../../assets/icon.png" alt="Icon" width="160" height="160"
+     style="border-radius:16px; border:1px solid var(--border);" />
+
+<div class="row" style="margin-top:12px;">
+  <button id="setAlt" class="btn" type="button" data-new-alt="Updated Icon">Set ALT</button>
+  <button id="toggleSize" class="btn ghost" type="button">Toggle Size</button>
+</div>
+
+<p class="muted">ALT text: <span id="altOut" class="badge">-</span></p>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

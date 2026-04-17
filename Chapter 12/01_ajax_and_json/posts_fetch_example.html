@@ -1,0 +1,32 @@
+<!-- 01_ajax_and_json/posts_fetch_example.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Posts Fetch Example</title>
+</head>
+<body>
+  <h1>Posts</h1>
+  <ul id="posts"></ul>
+
+  <script>
+    // Based on the "Following demonstrates Fetch usage for a posts API" snippet
+    fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(posts => {
+        const ul = document.getElementById('posts');
+        posts.forEach(p => {
+          const li = document.createElement('li');
+          li.innerHTML = '<strong>' + p.title + '</strong><p>' + p.body + '</p>';
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error('Error:', err));
+  </script>
+</body>
+</html>

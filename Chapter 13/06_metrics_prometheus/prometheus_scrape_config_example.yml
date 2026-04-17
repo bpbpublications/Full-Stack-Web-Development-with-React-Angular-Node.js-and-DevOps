@@ -1,0 +1,6 @@
+# 06_metrics_prometheus/prometheus_scrape_config_example.yml
+
+scrape_configs:
+  - job_name: 'chapter13-node-app'
+    static_configs:
+      - targets: ['host.docker.internal:3000']

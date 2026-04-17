@@ -1,0 +1,5 @@
+/* External CSS */
+.title { color: #dc2626; }   /* class selector */
+.desc  { color: #111827; }
+.highlight { background: #fff7cc; padding: 6px 10px; border-radius: 10px; }
+#special { border: 2px solid #111827; }  /* ID selector (more specific than class) */

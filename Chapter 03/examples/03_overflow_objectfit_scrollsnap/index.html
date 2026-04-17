@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overflow + Object-Fit + Scroll Snap</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Overflow & Object-Fit</h1>
+    <p class="muted">The image uses <code>object-fit: cover</code>. The slider uses scroll-snap.</p>
+
+    <section class="media">
+      <img src="../../assets/hero.jpg" alt="Hero image" />
+      <div class="overlay">object-fit: cover</div>
+    </section>
+
+    <h2>Horizontal Scroll (Scroll Snap)</h2>
+    <div class="snap">
+      <article class="tile">Slide 1</article>
+      <article class="tile">Slide 2</article>
+      <article class="tile">Slide 3</article>
+      <article class="tile">Slide 4</article>
+    </div>
+  </main>
+</body>
+</html>

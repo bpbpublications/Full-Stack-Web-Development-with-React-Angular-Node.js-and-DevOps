@@ -1,0 +1,40 @@
+<h2>Template-driven Login Form</h2>
+
+<form #loginForm="ngForm" (ngSubmit)="submitForm()">
+  <div>
+    <label>Email</label>
+    <input
+      name="email"
+      [(ngModel)]="model.email"
+      required
+      email
+      #email="ngModel"
+    />
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+      <small *ngIf="email.errors?.['required']">Email is required.</small>
+      <small *ngIf="email.errors?.['email']">Enter a valid email.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Password</label>
+    <input
+      name="password"
+      type="password"
+      [(ngModel)]="model.password"
+      required
+      minlength="6"
+      #password="ngModel"
+    />
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+      <small *ngIf="password.errors?.['required']">Password is required.</small>
+      <small *ngIf="password.errors?.['minlength']">
+        Minimum length is {{ password.errors?.['minlength']?.requiredLength }}.
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+  <p *ngIf="submitted">Form submitted. Check console log.</p>
+</form>

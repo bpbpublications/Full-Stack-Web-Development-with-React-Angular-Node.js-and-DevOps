@@ -1,0 +1,507 @@
+=== SNIPPET 0 ===
+CREATE TABLEusers(
+idSERIAL PRIMARY KEY,
+nameVARCHAR (100)NOTNULL,
+
+=== SNIPPET 1 ===
+CREATE TABLEorders (
+idSERIAL PRIMARY KEY,
+user_id INTREFERENCES users(id),
+totalNUMERIC (10,2)NOTNULL,
+status VARCHAR (20),
+
+=== SNIPPET 2 ===
+SELECT u.name, u.email, o.total, o.order_date
+
+=== SNIPPET 3 ===
+// Insert a user document
+db.users.insertOne({
+
+=== SNIPPET 4 ===
+// Query shipped orders for Alice
+db.users.find(
+{"orders.status" :"shipped" },
+{name:1,"orders.$" :1}
+);
+
+=== SNIPPET 5 ===
+// Insert
+db.products.insertOne({
+
+=== SNIPPET 6 ===
+// Query active products under $50
+db.products.find(
+{price:{$lt:50}},
+{name:1,price:1,_id:0}
+);
+
+=== SNIPPET 7 ===
+•SimpleAPI: GET,SET,DELETE operations bykey.
+
+=== SNIPPET 8 ===
+CREATE TABLEmetrics (
+
+=== SNIPPET 9 ===
+PRIMARY KEY(device_id, ts)
+)WITHCLUSTERING ORDERBY(tsDESC);
+SELECT *FROMmetrics
+WHEREdevice_id ='sensorA' ANDts>'2025-01-01' ;
+
+=== SNIPPET 10 ===
+// Find friends of friends for user Alice
+MATCH(a:User {name:"Alice" })-[:FRIEND ]->(f)-[:FRIEND ]->(fof)
+RETURN fof.name ASfriendOfFriend;
+
+=== SNIPPET 11 ===
+const{MongoClient }=require( 'mongodb' );
+asyncfunction run(){
+constclient =newMongoClient(process.env.MONGO_URI);
+awaitclient.connect();
+constdb=client.db( 'appDB' );
+constusers=db.collection( 'users' );
+// Create
+awaitusers.insertOne({ username :'bob',email:'bob@example.com' });
+// Read
+constactive =awaitusers.find({ status:'active' }).toArray();
+// Update
+awaitusers.updateOne(
+{username :'bob'},
+{$set:{status:'inactive' }}
+);
+// Delete
+awaitusers.deleteOne({ username :'bob'});
+awaitclient.close();
+}
+run();
+
+=== SNIPPET 12 ===
+// Single-field index
+awaitusers.createIndex({ email:1},{unique:true});
+// Compound index
+awaitusers.createIndex({ status:1,createdAt :-1});
+// TTL index for automatic document expiration
+awaitusers.createIndex({ createdAt :1},{expireAfterSeconds :3600});
+
+=== SNIPPET 13 ===
+CREATE TABLEusers(
+idSERIAL PRIMARY KEY,
+nameVARCHAR (100)NOTNULL,
+emailVARCHAR (255)UNIQUE NOTNULL,
+status VARCHAR (20)DEFAULT 'active' ,
+created_at TIMESTAMP WITHTIMEZONEDEFAULT now()
+);
+
+=== SNIPPET 14 ===
+INSERT INTOusers(name,email,profile,roles)
+VALUES (
+
+=== SNIPPET 15 ===
+SELECT name,profile ->>'city' AScity
+
+=== SNIPPET 16 ===
+UPDATE usersSETstatus='inactive' WHEREcreated_at <now()-INTERVAL '1 year' ;
+DELETE FROMsessions WHEREuser_id NOTIN(SELECT idFROMusers);
+COMMIT;
+
+=== SNIPPET 17 ===
+constmongoose =require( 'mongoose' );
+asyncfunction connectDB() {
+try{
+awaitmongoose.connect(process.env.MONGO_URI, {
+
+=== SNIPPET 18 ===
+// Optional settings
+
+=== SNIPPET 19 ===
+module.exports =connectDB;
+
+=== SNIPPET 20 ===
+constexpress =require( 'express' );
+constconnectDB =require( './db');
+constapp=express();
+app.use(express.json());
+connectDB();
+app.get( '/',(req,res)=>{
+res.send( 'API is running' );
+});
+constPORT=process.env.PORT ||3000;
+app.listen(PORT, ()=>
+console.log( `Server listening on port ${PORT}`)
+);
+
+=== SNIPPET 21 ===
+constmongoose =require( 'mongoose' );
+constUserSchema =newmongoose.Schema({
+name:{type:String,required :true,trim:true},
+email:{
+
+=== SNIPPET 22 ===
+// Instance method example
+UserSchema.methods.isActive =function (){
+return this.status ==='active' ;
+};
+// Static method example
+UserSchema.statics.findByStatus =function (status) {
+return this.find({ status });
+};
+module.exports =mongoose.model( 'User',UserSchema);
+
+=== SNIPPET 23 ===
+// Create user
+constuser=awaitUser.create({ name:'Bob',email:'bob@example.com' });
+// Read users
+
+=== SNIPPET 24 ===
+// Update user
+constupdated =awaitUser.findByIdAndUpdate(
+
+=== SNIPPET 25 ===
+// Delete user
+awaitUser.findByIdAndDelete(user._id);
+
+=== SNIPPET 26 ===
+// Pagination parameters
+constpage=parseInt (req.query.page) ||1;
+constlimit=parseInt (req.query.limit) ||10;
+// Query with skip, limit, sort and projection
+constusers=awaitUser.find({ status:'active' })
+.sort({ createdAt :-1})
+.skip((page -1)*limit)
+.limit(limit)
+.select( 'name email status' );
+
+=== SNIPPET 27 ===
+app.post( '/users' ,async(req,res)=>{
+
+=== SNIPPET 28 ===
+constuser=awaitUser.create(req.body);
+res.status( 201).json(user);
+}catch(err){
+res.status( 400).json({ error:err.message });
+}
+});
+ReadDocuments Readingdatainvolves find()formultipledocumentsor findById() forasin-
+
+=== SNIPPET 29 ===
+// Fetch all users
+app.get( '/users' ,async(req,res)=>{
+try{
+constusers=awaitUser.find().sort({ createdAt :-1});
+res.json(users);
+}catch(err){
+res.status( 500).json({ error:err.message });
+}
+});
+// Fetch one user by ID
+app.get( '/users/:id' ,async(req,res)=>{
+try{
+constuser=awaitUser.findById(req.params.id);
+if(!user)return res.status( 404).json({ error:'Not found' });
+res.json(user);
+}catch(err){
+res.status( 500).json({ error:err.message });
+}
+});
+Update Document Updating uses findByIdAndUpdate() orsave()on a fetched document. Al-
+
+=== SNIPPET 30 ===
+app.put( '/users/:id' ,async(req,res)=>{
+try{
+constupdated =awaitUser.findByIdAndUpdate(
+req.params.id,
+req.body,
+{new:true,runValidators :true}
+);
+if(!updated) return res.status( 404).json({ error:'Not found' });
+res.json(updated);
+}catch(err){
+res.status( 400).json({ error:err.message });
+}
+});
+DeleteDocument Removingdocumentscanbedonewith findByIdAndDelete() ordeleteOne() .
+
+=== SNIPPET 31 ===
+app.delete('/users/:id' ,async(req,res)=>{
+try{
+constdeleted =awaitUser.findByIdAndDelete(req.params.id);
+if(!deleted) return res.status( 404).json({ error:'Not found' });
+res.json({ message :'Deleted successfully' });
+}catch(err){
+res.status( 500).json({ error:err.message });
+}
+});
+
+=== SNIPPET 32 ===
+•All operations return Promises; use async/await with try/catch for clean error handling.
+
+=== SNIPPET 33 ===
+const{Sequelize }=require( 'sequelize' );
+constsequelize =newSequelize(
+
+=== SNIPPET 34 ===
+(async()=>{
+try{
+awaitsequelize.authenticate();
+console.log( 'PostgreSQL connected' );
+}catch(err){
+console.error( 'Connection error:' ,err);
+process.exit( 1);
+}
+})();
+
+=== SNIPPET 35 ===
+module.exports =sequelize;
+
+=== SNIPPET 36 ===
+const{DataTypes }=require( 'sequelize' );
+constsequelize =require( './db');
+constUser=sequelize.define( 'User',{
+username :{
+
+=== SNIPPET 37 ===
+module.exports =User;
+
+=== SNIPPET 38 ===
+// Create
+awaitUser.create({ username :'alice' ,email:'alice@example.com' });
+// Read
+constallUsers =awaitUser.findAll();
+constsingleUser =awaitUser.findByPk( 1);
+// Update
+awaitUser.update(
+{email:'new@mail.com' },
+{where:{id:1}}
+);
+// Delete
+awaitUser.destroy({ where:{id:1}});
+
+=== SNIPPET 39 ===
+constresult =awaitsequelize.transaction( async(t)=>{
+constuser=awaitUser.create({ username :'bob'},{transaction :t});
+awaitTask.create(
+{title:'Initial Task' ,userId:user.id },
+{transaction :t}
+);
+return user;
+});
+
+=== SNIPPET 40 ===
+Indexingisacriticaltechniquethatacceleratesdataretrievalbycreatingauxiliarydatastructures.
+
+=== SNIPPET 41 ===
+// MongoDB: single-field and compound indexes
+db.users.createIndex({ email:1}); // ascending
+db.users.createIndex({ status:1,createdAt :-1});// compound
+
+=== SNIPPET 42 ===
+Isolation, Durability—which ensure reliable behavior under concurrent access and failures.
+
+=== SNIPPET 43 ===
+UPDATE accounts SETbalance =balance -100WHEREid=1;
+UPDATE accounts SETbalance =balance +100WHEREid=2;
+COMMIT;
+
+=== SNIPPET 44 ===
+constresult =awaitsequelize.transaction( async(t)=>{
+constuser=awaitUser.create({ name:'Bob'},{transaction :t});
+awaitTask.create({ title:'New Task' ,userId:user.id },{transaction :t});
+return user;
+});
+
+=== SNIPPET 45 ===
+where:{username :req.body.username }
+});
+
+=== SNIPPET 46 ===
+npminstall express sequelize pgpg-hstore jsonwebtoken bcrypt dotenv cors
+
+=== SNIPPET 47 ===
+// config/database.js
+const{Sequelize }=require( 'sequelize' );
+require( 'dotenv' ).config();
+constsequelize =newSequelize(
+
+=== SNIPPET 48 ===
+module.exports =sequelize;
+
+=== SNIPPET 49 ===
+// test-db.js
+constsequelize =require( './config/database' );
+sequelize.authenticate()
+.then(() =>console.log( 'Database connected successfully!' ))
+.catch((err) =>console.error( 'Database connection failed:' ,err));
+
+=== SNIPPET 50 ===
+// models/Student.js
+const{DataTypes }=require( 'sequelize' );
+constsequelize =require( '../config/database' );
+constStudent =sequelize.define( 'Student' ,{
+name:{
+
+=== SNIPPET 51 ===
+module.exports =Student;
+// models/Course.js
+const{DataTypes }=require( 'sequelize' );
+constsequelize =require( '../config/database' );
+constCourse =sequelize.define( 'Course' ,{
+title:{
+
+=== SNIPPET 52 ===
+module.exports =Course;
+// models/Enrollment.js
+const{DataTypes }=require( 'sequelize' );
+constsequelize =require( '../config/database' );
+constStudent =require( './Student' );
+constCourse =require( './Course' );
+constEnrollment =sequelize.define( 'Enrollment' ,{});
+Student.belongsToMany(Course, {through :Enrollment });
+Course.belongsToMany(Student, {through :Enrollment });
+module.exports =Enrollment;
+
+=== SNIPPET 53 ===
+// sync.js
+constsequelize =require( './config/database' );
+constStudent =require( './models/Student' );
+constCourse =require( './models/Course' );
+constEnrollment =require( './models/Enrollment' );
+sequelize.sync({ force:true})
+.then(() =>console.log( 'Database & tables created!' ))
+.catch(err=>console.error(err));
+
+=== SNIPPET 54 ===
+// routes/students.js
+constexpress =require( 'express' );
+constrouter =express.Router();
+constStudent =require( '../models/Student' );
+router.post( '/',async(req,res)=>{
+try{
+conststudent =awaitStudent.create(req.body);
+res.status( 201).json(student);
+}catch(error) {
+res.status( 400).json({ error:error.message });
+}
+});
+router.get( '/',async(req,res)=>{
+conststudents =awaitStudent.findAll();
+res.json(students);
+});
+module.exports =router;
+
+=== SNIPPET 55 ===
+// routes/courses.js
+constexpress =require( 'express' );
+constrouter =express.Router();
+constCourse =require( '../models/Course' );
+router.post( '/',async(req,res)=>{
+try{
+constcourse =awaitCourse.create(req.body);
+res.status( 201).json(course);
+}catch(error) {
+res.status( 400).json({ error:error.message });
+}
+});
+
+=== SNIPPET 56 ===
+router.get( '/',async(req,res)=>{
+constcourses =awaitCourse.findAll();
+res.json(courses);
+});
+module.exports =router;
+
+=== SNIPPET 57 ===
+// app.js
+constexpress =require( 'express' );
+constcors=require( 'cors');
+require( 'dotenv' ).config();
+constsequelize =require( './config/database' );
+conststudentRoutes =require( './routes/students' );
+constcourseRoutes =require( './routes/courses' );
+constapp=express();
+app.use(cors());
+app.use(express.json());
+app.use( '/api/students' ,studentRoutes);
+app.use( '/api/courses' ,courseRoutes);
+constPORT=process.env.PORT ||3000;
+sequelize.sync().then(() =>{
+app.listen(PORT, ()=>{
+console.log( `Server running on port ${PORT}`);
+});
+});
+
+=== SNIPPET 58 ===
+npminstall bcryptjs jsonwebtoken
+
+=== SNIPPET 59 ===
+// models/Student.js
+constbcrypt =require( 'bcryptjs' );
+// Add hook inside model definition
+Student.beforeCreate( async(student) =>{
+constsalt=awaitbcrypt.genSalt( 10);
+student.password =awaitbcrypt.hash(student.password, salt);
+});
+
+=== SNIPPET 60 ===
+// routes/auth.js
+constexpress =require( 'express' );
+constjwt=require( 'jsonwebtoken' );
+constbcrypt =require( 'bcryptjs' );
+constStudent =require( '../models/Student' );
+
+=== SNIPPET 61 ===
+// Login route
+router.post( '/login' ,async(req,res)=>{
+const{email, password }=req.body;
+try{
+constuser=awaitStudent.findOne({ where:{email}});
+if(!user)return res.status( 400).json({ error:'Invalid credentials' });
+constisMatch =awaitbcrypt.compare(password, user.password);
+if(!isMatch) return res.status( 400).json({ error:'Invalid credentials' });
+consttoken=jwt.sign({ id:user.id },process.env.JWT_SECRET, {expiresIn :'1h'});
+res.json({ token});
+}catch(err){
+res.status( 500).json({ error:'Server error' });
+}
+});
+module.exports =router;
+
+=== SNIPPET 62 ===
+// middleware/auth.js
+constjwt=require( 'jsonwebtoken' );
+constauthenticate =(req,res,next)=>{
+consttoken=req.header( 'Authorization' );
+if(!token) return res.status( 401).json({ error:'No token provided' });
+try{
+constdecoded =jwt.verify(token, process.env.JWT_SECRET);
+req.user =decoded;
+next();
+
+=== SNIPPET 63 ===
+res.status( 401).json({ error:'Invalid token' });
+}
+};
+module.exports =authenticate;
+
+=== SNIPPET 64 ===
+// routes/students.js
+constauthenticate =require( '../middleware/auth' );
+router.post( '/',authenticate, async(req,res)=>{
+try{
+conststudent =awaitStudent.create(req.body);
+res.status( 201).json(student);
+}catch(error) {
+res.status( 400).json({ error:error.message });
+}
+});
+// app.js
+constauthRoutes =require( './routes/auth' );
+app.use( '/api/auth' ,authRoutes);
+
+=== SNIPPET 65 ===
+JWT_SECRET=your_jwt_secret
+
+=== SNIPPET 66 ===
+require( 'dotenv' ).config();
+
+=== SNIPPET 67 ===
+•Start Command: node app.js
+

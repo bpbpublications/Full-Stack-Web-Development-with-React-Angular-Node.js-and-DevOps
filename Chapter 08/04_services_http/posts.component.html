@@ -1,0 +1,14 @@
+<h2>Posts from API</h2>
+
+<button (click)="fetchPosts()">Reload</button>
+
+<p *ngIf="loading">Loading...</p>
+<p *ngIf="error" class="error">{{ error }}</p>
+
+<ul *ngIf="!loading && !error">
+  <li *ngFor="let p of posts">
+    <strong>{{ p.id }}. {{ p.title }}</strong>
+    <br />
+    {{ p.body }}
+  </li>
+</ul>

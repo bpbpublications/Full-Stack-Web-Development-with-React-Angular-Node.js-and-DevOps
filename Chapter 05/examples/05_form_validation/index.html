@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example 05 — Form Handling and Validation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <div class="card">
+      <h1>Example 05 — Form Handling and Validation</h1>
+      
+<p class="muted">Submit the form. Validation runs in JavaScript (no page refresh).</p>
+
+<form id="form" class="form">
+  <div>
+    <label>Full name</label><br />
+    <input id="fullName" class="input" placeholder="Enter name" />
+    <div id="nameErr" class="err"></div>
+  </div>
+
+  <div>
+    <label>Email</label><br />
+    <input id="email" class="input" placeholder="name@example.com" />
+    <div id="emailErr" class="err"></div>
+  </div>
+
+  <button class="btn" type="submit">Submit</button>
+</form>
+
+<p id="msg" class="badge" style="margin-top:12px;">-</p>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

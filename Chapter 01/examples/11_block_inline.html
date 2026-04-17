@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Block vs Inline Elements</title>
+  <style>
+    .box { border: 1px dashed #888; padding: 8px; margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <h2>Block Elements</h2>
+  <div class="box">A &lt;div&gt; is block-level (starts on a new line).</div>
+  <p class="box">A &lt;p&gt; is also block-level.</p>
+
+  <h2>Inline Elements</h2>
+  <p>
+    This is <span class="box">a &lt;span&gt;</span> inside a paragraph.
+    <a href="#" class="box">This is an &lt;a&gt; link</a> inside the same line.
+  </p>
+</body>
+</html>

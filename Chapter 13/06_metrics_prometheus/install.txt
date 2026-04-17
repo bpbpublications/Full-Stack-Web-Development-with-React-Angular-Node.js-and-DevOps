@@ -1,0 +1,3 @@
+# 06_metrics_prometheus/install.txt
+
+npm install express prom-client

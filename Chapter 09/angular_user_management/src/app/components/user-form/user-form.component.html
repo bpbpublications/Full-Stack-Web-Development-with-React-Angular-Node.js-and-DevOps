@@ -1,0 +1,36 @@
+<h2 *ngIf="!isEdit">Create User</h2>
+<h2 *ngIf="isEdit">Edit User</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name</label>
+    <input formControlName="name" />
+    <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)" class="error">
+      <small *ngIf="f['name'].errors?.['required']">Name is required.</small>
+      <small *ngIf="f['name'].errors?.['minlength']">Name is too short.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Email</label>
+    <input formControlName="email" />
+    <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="error">
+      <small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+      <small *ngIf="f['email'].errors?.['email']">Enter a valid email.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Role</label>
+    <input formControlName="role" />
+    <div *ngIf="f['role'].invalid && (f['role'].dirty || f['role'].touched)" class="error">
+      <small>Role is required.</small>
+    </div>
+  </div>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <button type="submit" [disabled]="saving || form.invalid">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+</form>

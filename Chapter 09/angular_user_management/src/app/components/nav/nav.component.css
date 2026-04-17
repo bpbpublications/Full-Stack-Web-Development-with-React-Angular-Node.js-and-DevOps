@@ -1,0 +1,14 @@
+.main-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: #2b6cb0;
+}
+
+a.active {
+  font-weight: bold;
+}

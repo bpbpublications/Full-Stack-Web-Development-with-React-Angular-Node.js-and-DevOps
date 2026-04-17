@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Landing Page</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="navbar">
+      <div class="brand">Advanced CSS</div>
+      <nav class="navlinks">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Advanced CSS Concepts</h1>
+        <p>
+          This landing page uses modern CSS: variables, responsive typography, gradients,
+          glass cards, Grid + Flex patterns, transitions, and keyframe animations.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#features">Explore Features</a>
+          <a class="btn ghost" href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <img src="../assets/hero.jpg" alt="Hero background" />
+        <div class="badge">Smooth UI</div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <article class="feature">
+        <h3>Glass Layout</h3>
+        <p>Use blur + transparent panels for a clean, modern feel.</p>
+      </article>
+      <article class="feature">
+        <h3>Responsive Type</h3>
+        <p>Use clamp() so headings scale naturally across screen sizes.</p>
+      </article>
+      <article class="feature">
+        <h3>Subtle Motion</h3>
+        <p>Use transitions and small animations without distracting users.</p>
+      </article>
+    </section>
+
+    <section id="about" class="features" style="margin-top:12px;">
+      <article class="feature" style="grid-column: 1 / -1;">
+        <h3>About</h3>
+        <p>
+          Keep CSS modular. Use variables for theme and spacing, then build reusable cards and layout blocks.
+        </p>
+      </article>
+    </section>
+
+    <section id="contact" class="features" style="margin-top:12px;">
+      <article class="feature" style="grid-column: 1 / -1;">
+        <h3>Contact</h3>
+        <p>Replace this section with a form in later chapters.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2025 Advanced CSS Landing</p>
+    </footer>
+  </main>
+</body>
+</html>

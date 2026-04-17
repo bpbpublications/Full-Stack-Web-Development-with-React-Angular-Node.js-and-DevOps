@@ -1,0 +1,8 @@
+body { font-family: system-ui, Arial, sans-serif; margin: 0; padding: 24px; background: #f6f7fb; }
+.card { max-width: 720px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+button { padding: 10px 14px; border: 0; border-radius: 10px; cursor: pointer; background: #111; color: #fff; }
+button:hover { opacity: 0.9; }
+pre { background: #0b1020; color: #d7e7ff; padding: 14px; border-radius: 10px; overflow:auto; }
+code { background: #eef2ff; padding: 2px 6px; border-radius: 6px; }

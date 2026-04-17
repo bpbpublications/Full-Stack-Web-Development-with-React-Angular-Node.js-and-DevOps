@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Positioning + Sticky</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="sticky">
+    <strong>Sticky Header</strong>
+    <span class="muted">Scroll down to see it stick</span>
+  </header>
+
+  <main class="wrap">
+    <section class="stack">
+      <div class="box a">A (z-index 1)</div>
+      <div class="box b">B (z-index 2)</div>
+      <div class="box c">C (z-index 3)</div>
+      <div class="badge">Absolute badge</div>
+    </section>
+
+    <section class="content">
+      <h2>Notes</h2>
+      <ul>
+        <li><b>relative</b> creates a positioning context</li>
+        <li><b>absolute</b> positions inside the nearest positioned parent</li>
+        <li><b>z-index</b> controls stacking order</li>
+        <li><b>position: sticky</b> sticks after a scroll threshold</li>
+      </ul>
+      <p class="muted">Add some scroll space below…</p>
+      <div class="spacer"></div>
+    </section>
+  </main>
+</body>
+</html>

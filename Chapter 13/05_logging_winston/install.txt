@@ -1,0 +1,3 @@
+# 05_logging_winston/install.txt
+
+npm install winston

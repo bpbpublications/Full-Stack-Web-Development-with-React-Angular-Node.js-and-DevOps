@@ -1,0 +1,30 @@
+<!-- 01_ajax_and_json/basic_fetch_example.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Fetch Example</title>
+</head>
+<body>
+  <h1>Users</h1>
+  <ul id="user-list"></ul>
+
+  <script>
+    // Simple AJAX-style call using fetch() as shown in Chapter 12
+    fetch('https://api.example.com/users')
+      .then(response => response.json())
+      .then(data => {
+        console.log('User Data:', data);
+        const ul = document.getElementById('user-list');
+        data.forEach(user => {
+          const li = document.createElement('li');
+          li.textContent = user.name + ' (' + user.email + ')';
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error('Error:', err);
+      });
+  </script>
+</body>
+</html>

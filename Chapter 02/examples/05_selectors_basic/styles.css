@@ -1,0 +1,4 @@
+body { font-family: Arial, sans-serif; margin: 24px; }
+p { color: #0f172a; }                 /* element selector */
+.highlight { background: #e0f2fe; padding: 8px; border-radius: 8px; } /* class */
+#unique { color: #b91c1c; font-weight: 700; } /* id selector */

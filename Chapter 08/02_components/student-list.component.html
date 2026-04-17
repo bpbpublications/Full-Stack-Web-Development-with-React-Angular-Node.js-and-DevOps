@@ -1,0 +1,7 @@
+<h3>Students enrolled in {{ course }}</h3>
+<ul>
+  <li *ngFor="let s of students">
+    {{ s }}
+    <button (click)="selectStudent(s)">Select</button>
+  </li>
+</ul>

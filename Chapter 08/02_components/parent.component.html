@@ -1,0 +1,11 @@
+<h2>Parent Component</h2>
+<p>Course: {{ courseName }}</p>
+
+<app-student-list
+  [course]="courseName"
+  (studentSelected)="handleStudentSelected($event)">
+</app-student-list>
+
+<p *ngIf="selectedStudent">
+  Selected student: <strong>{{ selectedStudent }}</strong>
+</p>

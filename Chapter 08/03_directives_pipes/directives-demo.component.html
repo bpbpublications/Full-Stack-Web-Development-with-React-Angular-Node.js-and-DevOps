@@ -1,0 +1,15 @@
+<h2>Structural Directives</h2>
+
+<button (click)="toggleDetails()">
+  {{ showDetails ? 'Hide' : 'Show' }} details
+</button>
+
+<p *ngIf="showDetails">
+  Angular uses structural directives like *ngIf and *ngFor to change the DOM structure.
+</p>
+
+<ul>
+  <li *ngFor="let t of topics; index as i">
+    {{ i + 1 }}. {{ t }}
+  </li>
+</ul>

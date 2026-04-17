@@ -1,0 +1,7 @@
+# 01_docker_node_app/run_commands.txt
+
+# Build the Docker image (as in the chapter)
+docker build -t my-node-app .
+
+# Run the container mapping container port 3000 to host 3000
+docker run -p 3000:3000 my-node-app

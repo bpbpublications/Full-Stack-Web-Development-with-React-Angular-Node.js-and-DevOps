@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do App (DOM + localStorage)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <div class="card">
+      <div class="header">
+        <h1>To-Do App</h1>
+        <span id="count" class="badge">0 tasks</span>
+      </div>
+
+      <p class="muted">Add tasks, mark completed, delete, and filter. Data stays after refresh.</p>
+
+      <div class="row">
+        <input id="taskInput" class="input" placeholder="New task..." />
+        <button id="addBtn" class="btn" type="button">Add</button>
+        <button id="clearBtn" class="btn danger" type="button">Clear Done</button>
+      </div>
+
+      <div class="filters" style="margin-top:12px;">
+        <button data-filter="all" class="active" type="button">All</button>
+        <button data-filter="active" type="button">Active</button>
+        <button data-filter="done" type="button">Completed</button>
+      </div>
+
+      <ul id="list" class="tasklist"></ul>
+
+      <div class="footerRow">
+        <span id="status" class="smallmuted">Ready.</span>
+        <button id="wipeBtn" class="btn ghost" type="button">Delete All</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

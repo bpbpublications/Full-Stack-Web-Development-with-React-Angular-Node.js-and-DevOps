@@ -1,0 +1,696 @@
+=== SNIPPET 0 ===
+// Asynchronous (non-blocking) I/O
+constfs=require( 'fs');
+fs.readFile( 'data.txt' ,'utf8',(err,content) =>{
+if(err)throwerr;
+console.log( 'File contents:' ,content);
+});
+console.log( 'This runs before file is read' );
+
+=== SNIPPET 1 ===
+consthttp=require( 'http');
+constserver =http.createServer((req, res)=>{
+res.writeHead( 200,{'Content-Type' :'text/plain' });
+res.end( 'Hello from Node.js!' );
+});
+server.listen( 3000,()=>{
+console.log( 'Server running at http://localhost:3000' );
+});
+
+=== SNIPPET 2 ===
+•Savecode to app.js.
+•Runnode app.js in terminal.
+
+=== SNIPPET 3 ===
+constexpress =require( 'express' );
+constapp=express();
+// route for GET /
+
+=== SNIPPET 4 ===
+app.get( '/',(req,res)=>{
+res.send( 'Welcome to Express.js!' );
+});
+// start server on port 3000
+app.listen( 3000,()=>{
+console.log( 'Server running at http://localhost:3000' );
+});
+
+=== SNIPPET 5 ===
+app.get(path,
+handler)Handle HTTP GET requests
+app.post(path,
+handler)Handle HTTP POST requests
+app.put(path,
+handler)Handle HTTP PUT requests
+app.delete(path,
+handler)Handle HTTP DELETE requests
+app.use(middleware) Register middlewarefor all routes
+
+=== SNIPPET 6 ===
+// request logger middleware
+app.use((req, res,next)=>{
+console.log( `${req.method }${req.url }`);
+next(); // pass control to next handler
+
+=== SNIPPET 7 ===
+// JSON body parser
+app.use(express.json());
+
+=== SNIPPET 8 ===
+├── app.js # main application entry point
+
+=== SNIPPET 9 ===
+constexpress =require( 'express' );
+constapp=express();
+
+=== SNIPPET 10 ===
+// parse JSON bodies
+app.use(express.json());
+// GET /products returns product list
+app.get( '/products' ,(req,res)=>{
+constproducts =[
+{id:1,name:'Laptop' ,price:999},
+{id:2,name:'Phone' ,price:499}
+];
+res.json(products);
+});
+// POST /products creates a new product
+app.post( '/products' ,(req,res)=>{
+constnewProduct =req.body;
+// In a real app, save to database here
+res.status( 201).json({
+
+=== SNIPPET 11 ===
+// start server
+app.listen( 4000,()=>{
+console.log( 'E-commerce API running at http://localhost:4000' );
+});
+
+=== SNIPPET 12 ===
+•Callnext()to continue the chain
+
+=== SNIPPET 13 ===
+app.use((req, res,next)=>{
+console.log( `[${newDate().toISOString() }]${req.method }${req.url }`);
+next();
+});
+
+=== SNIPPET 14 ===
+Routes map HTTP methods and URL paths to handler functions. Express’s app.METHOD(path,
+handler) API coverscommon verbsand supports pattern matching.
+
+=== SNIPPET 15 ===
+app.get( '/',(req,res)=>{
+res.send( 'Home Page' );
+});
+app.post( '/submit' ,(req,res)=>{
+res.send( 'Form Submitted' );
+});
+
+=== SNIPPET 16 ===
+app.get( '/users/:id' ,(req,res)=>{
+constid=req.params.id;
+res.send( `User ID is ${id}`);
+});
+
+=== SNIPPET 17 ===
+app.get( '/search' ,(req,res)=>{
+constq=req.query.q;
+res.send( `Search for ${q}`);
+});
+
+=== SNIPPET 18 ===
+// routes/users.js
+constrouter =require( 'express' ).Router();
+router.get( '/',(req,res)=>res.send( 'Users home' ));
+router.get( '/:id',(req,res)=>res.send( `User${req.params.id }`));
+module.exports =router;
+Following script integrates the router in app.js
+// app.js
+constexpress =require( 'express' );
+constuserRoutes =require( './routes/users' );
+constapp=express();
+app.use( '/users' ,userRoutes);
+
+=== SNIPPET 19 ===
+constexpress =require( 'express' );
+constapp=express();
+
+=== SNIPPET 20 ===
+app.use(express.json());
+// API key validation middleware
+app.use((req, res,next)=>{
+if(req.headers[ 'x-api-key' ]!=='12345' ){
+return res.status( 403).send( 'Forbidden: Invalid API key' );
+}
+next();
+});
+app.get( '/products' ,(req,res)=>{
+res.json([{ id:1,name:'Phone' },{id:2,name:'Tablet' }]);
+});
+app.post( '/products' ,(req,res)=>{
+constprod=req.body;
+res.status( 201).json({ message :'Created' ,product :prod});
+});
+app.listen( 3000,()=>console.log( 'Server on port 3000' ));
+
+=== SNIPPET 21 ===
+Expressusesasimple app.METHOD(path, handler) syntaxandsupportsdynamicsegments,query
+
+=== SNIPPET 22 ===
+app.get( '/',(req,res)=>{
+
+=== SNIPPET 23 ===
+res.send( 'Home Page' );
+});
+app.post( '/submit' ,(req,res)=>{
+res.send( 'Form submitted successfully' );
+});
+
+=== SNIPPET 24 ===
+Route parameters capture dynamic values in the URL. They appear in req.params and enable
+
+=== SNIPPET 25 ===
+app.get( '/users/:userId' ,(req,res)=>{
+constuserId =req.params.userId;
+res.send( `User ID: ${userId}`);
+});
+
+=== SNIPPET 26 ===
+Query parameters follow a ?in the URL and are parsed into req.query . They suit optional filters
+
+=== SNIPPET 27 ===
+app.get( '/search' ,(req,res)=>{
+constterm=req.query.q;
+res.send( `Search for ${term}`);
+});
+
+=== SNIPPET 28 ===
+Routes can invoke multiple middleware or handler functions in sequence. Each must call next()
+
+=== SNIPPET 29 ===
+constlogRequest =(req,res,next)=>{
+console.log( `${req.method }${req.url }`);
+
+=== SNIPPET 30 ===
+next();
+};
+app.get( '/info' ,logRequest, (req,res)=>{
+res.send( 'Information page' );
+});
+
+=== SNIPPET 31 ===
+Modularroutersgrouprelatedroutesinseparatefiles,keeping app.jsunclutteredandimproving
+
+=== SNIPPET 32 ===
+// routes/users.js
+constrouter =require( 'express' ).Router();
+router.get( '/',(req,res)=>{
+res.send( 'Users home' );
+});
+router.get( '/:id',(req,res)=>{
+res.send( `User${req.params.id }`);
+});
+module.exports =router;
+Following integrates the router in app.js
+// app.js
+constexpress =require( 'express' );
+constuserRoutes =require( './routes/users' );
+constapp=express();
+app.use( '/users' ,userRoutes);
+
+=== SNIPPET 33 ===
+constexpress =require( 'express' );
+constapp=express();
+app.use(express.json());
+// API key validation
+app.use((req, res,next)=>{
+if(req.headers[ 'x-api-key' ]!=='12345' ){
+return res.status( 403).send( 'Forbidden: Invalid API key' );
+}
+next();
+});
+letproducts =[
+{id:1,name:'Laptop' },
+{id:2,name:'Phone' }
+];
+app.get( '/products' ,(req,res)=>{
+res.json(products);
+});
+app.get( '/products/:id' ,(req,res)=>{
+constp=products.find(x =>x.id===+req.params.id);
+if(!p)return res.status( 404).send( 'Not found' );
+res.json(p);
+});
+app.post( '/products' ,(req,res)=>{
+constnewP={id:products.length +1,name:req.body.name };
+products.push(newP);
+
+=== SNIPPET 34 ===
+res.status( 201).json(newP);
+});
+app.listen( 3000,()=>console.log( 'Server on port 3000' ));
+
+=== SNIPPET 35 ===
+// initialize Express and sample data
+constexpress =require( 'express' );
+constapp=express();
+app.use(express.json());
+letbooks=[
+{id:1,title:'Atomic Habits' ,author:'James Clear' },
+{id:2,title:'The Alchemist' ,author:'Paulo Coelho' }
+];
+
+=== SNIPPET 36 ===
+// GET all books
+app.get( '/books' ,(req,res)=>{
+res.json(books);
+});
+// GET a book by ID
+app.get( '/books/:id' ,(req,res)=>{
+constbook=books.find(b =>b.id===+req.params.id);
+if(!book)return res.status( 404).json({ error:'Not found' });
+res.json(book);
+});
+// POST a new book
+app.post( '/books' ,(req,res)=>{
+constnewBook ={id:books.length +1,...req.body };
+books.push(newBook);
+res.status( 201).json(newBook);
+});
+// PUT to update a book
+app.put( '/books/:id' ,(req,res)=>{
+constbook=books.find(b =>b.id===+req.params.id);
+if(!book)return res.status( 404).json({ error:'Not found' });
+Object.assign(book, req.body);
+res.json(book);
+});
+// DELETE a book
+app.delete('/books/:id' ,(req,res)=>{
+constindex=books.findIndex(b =>b.id===+req.params.id);
+if(index ===-1)return res.status( 404).json({ error:'Not found' });
+const[deleted] =books.splice(index, 1);
+res.json(deleted);
+});
+
+=== SNIPPET 37 ===
+app.listen(PORT, ()=>{
+console.log( `RESTful API server running on port ${PORT}`);
+});
+
+=== SNIPPET 38 ===
+implementation in a Node.js/Express environment using bcrypt, JWTs,and middleware.
+
+=== SNIPPET 39 ===
+•Protects against credential theft by hashing (bcrypt)
+Below script shows password hashing with bcrypt
+constbcrypt =require( 'bcrypt' );
+asyncfunction hashPassword(plain) {
+constsalt=awaitbcrypt.genSalt( 10);
+return awaitbcrypt.hash(plain, salt);
+}
+// Usage
+hashPassword( 'MySecret123' ).then(hash =>
+console.log( 'Hashed password:' ,hash)
+);
+
+=== SNIPPET 40 ===
+function authorizeRole(role) {
+return (req,res,next)=>{
+if(req.user.role !==role){
+return res.status( 403).json({ error:'Forbidden' });
+}
+next();
+};
+}
+// Usage
+app.get( '/admin' ,authenticate, authorizeRole( 'admin' ),(req,res)=>{
+res.send( 'Admin content' );
+});
+
+=== SNIPPET 41 ===
+suance,andmiddlewareforprotectedroutes. Commonlibrariesincludebcryptforhashing,json-
+
+=== SNIPPET 42 ===
+constexpress =require( 'express' );
+constbcrypt =require( 'bcrypt' );
+constjwt=require( 'jsonwebtoken' );
+constapp=express();
+app.use(express.json());
+constusers=[];// in-memory store
+// Register
+
+=== SNIPPET 43 ===
+app.post( '/register' ,async(req,res)=>{
+consthash=awaitbcrypt.hash(req.body.password, 10);
+users.push({ id:users.length +1,username :req.body.username, password :hash,role:
+'user' });\
+
+=== SNIPPET 44 ===
+res.status( 201).send( 'User registered' );
+});
+// Login
+app.post( '/login' ,async(req,res)=>{
+constuser=users.find(u =>u.username ===req.body.username);
+if(!user||!awaitbcrypt.compare(req.body.password, user.password)) {
+return res.status( 401).json({ error:'Invalid credentials' });
+}
+consttoken=jwt.sign({ id:user.id, role:user.role },'secretKey' ,{expiresIn :'1h'});
+res.json({ token});
+});
+// Middleware to authenticate JWT
+function authenticate(req, res,next){
+constauth=req.headers[ 'authorization' ];
+if(!auth)return res.status( 401).json({ error:'No token' });
+consttoken=auth.split( ' ')[1];
+try{
+req.user =jwt.verify(token, 'secretKey' );
+next();
+}catch{
+res.status( 403).json({ error:'Invalid token' });
+}
+}
+// Protected route
+app.get( '/profile' ,authenticate, (req,res)=>{
+res.json({ message :`Hello user ${req.user.id }`,role:req.user.role });
+});
+app.listen( 3000,()=>console.log( 'Auth server on port 3000' ));
+
+=== SNIPPET 45 ===
+ToimplementJWTinExpress,installcorelibrariesandloadenvironmentvariables. Use bcryptjs
+
+=== SNIPPET 46 ===
+npminstall express jsonwebtoken bcryptjs dotenv
+
+=== SNIPPET 47 ===
+constexpress =require( 'express' );
+constbcrypt =require( 'bcryptjs' );
+constjwt=require( 'jsonwebtoken' );
+require( 'dotenv' ).config();
+constapp=express();
+app.use(express.json());
+constusers=[
+{id:1,username :'admin' ,password :'$2a$10$ABC...' }
+];
+app.post( '/login' ,async(req,res)=>{
+const{username, password }=req.body;
+constuser=users.find(u =>u.username ===username);
+if(!user||!(awaitbcrypt.compare(password, user.password))) {
+return res.status( 401).json({ message :'Invalid credentials' });
+}
+consttoken=jwt.sign(
+{id:user.id, username :user.username },
+
+=== SNIPPET 48 ===
+res.json({ token});
+});
+
+=== SNIPPET 49 ===
+req.user .
+
+=== SNIPPET 50 ===
+function authenticateToken(req, res,next){
+constauth=req.headers[ 'authorization' ];
+consttoken=auth&&auth.split( ' ')[1];
+if(!token) return res.sendStatus( 401);
+jwt.verify(token, process.env.JWT_SECRET, (err,user)=>{
+if(err)return res.sendStatus( 403);
+req.user =user;
+next();
+});
+}
+
+=== SNIPPET 51 ===
+app.get( '/dashboard' ,authenticateToken, (req,res)=>{
+res.json({ message :`Welcome ${req.user.username }`,user:req.user });
+});
+
+=== SNIPPET 52 ===
+require( 'dotenv' ).config();
+constexpress =require( 'express' );
+constpassport =require( 'passport' );
+constsession =require( 'express-session' );
+constGoogleStrategy =require( 'passport-google-oauth20' ).Strategy;
+passport.use( newGoogleStrategy({
+
+=== SNIPPET 53 ===
+},(accessToken, refreshToken, profile, done)=>{
+done(null,profile);
+}));
+passport.serializeUser((user, done)=>done(null,user));
+passport.deserializeUser((obj, done)=>done(null,obj));
+constapp=express();
+app.use(session({ secret:process.env.SESSION_SECRET, resave:false,
+saveUninitialized :true}));\
+
+=== SNIPPET 54 ===
+app.use(passport.initialize());
+app.use(passport.session());
+
+=== SNIPPET 55 ===
+// Initiate OAuth flow
+app.get( '/auth/google' ,passport.authenticate( 'google' ,{scope:['profile' ,'email' ]}));
+// Callback URL
+app.get( '/auth/google/callback' ,
+passport.authenticate( 'google' ,{failureRedirect :'/'}),
+(req,res) =>{res.redirect( '/profile' );}
+);
+// Protected profile
+app.get( '/profile' ,(req,res) =>{
+if(!req.isAuthenticated()) return res.redirect( '/');
+res.json(req.user);
+});
+app.get( '/logout' ,(req,res) =>{req.logout(() =>res.redirect( '/'));});
+
+=== SNIPPET 56 ===
+├── app.js
+
+=== SNIPPET 57 ===
+require( 'dotenv' ).config();
+constdbUrl =process.env.DB_URL;
+constport =process.env.PORT ||3000;
+
+=== SNIPPET 58 ===
+app.use((err, req,res,next)=>{
+console.error(err.stack);
+res.status(err.status ||500)
+.json({ error:'Internal server error' });
+});
+
+=== SNIPPET 59 ===
+const{body,validationResult }=require( 'express-validator' );
+app.post( '/register' ,[
+body('email' ).isEmail().normalizeEmail(),
+body('password' ).isLength({ min:6}).escape()
+],(req,res)=>{
+consterrors =validationResult(req);
+if(!errors.isEmpty()) {
+return res.status( 400).json({ errors:errors.array() });
+}
+// proceed
+});
+
+=== SNIPPET 60 ===
+Following demonstrates an async route
+app.get( '/data' ,async(req,res)=>{
+try{
+constitems=awaitfetchFromDatabase();
+res.json(items);
+}catch(err){
+res.status( 500).json({ message :'Fetch error' });
+
+=== SNIPPET 61 ===
+constmorgan =require( 'morgan' );
+app.use(morgan( 'combined' ));
+
+=== SNIPPET 62 ===
+for HTTP headers, express-rate-limit for throttling, and bcryptfor passwords.
+
+=== SNIPPET 63 ===
+consthelmet =require( 'helmet' );
+constrateLimit =require( 'express-rate-limit' );
+app.use(helmet());
+constlimiter =rateLimit({ windowMs :15*60*1000,max:100});
+app.use(limiter);
+
+=== SNIPPET 64 ===
+constuserSchema =newmongoose.Schema({
+email:{type:String,unique:true,index:true},
+
+=== SNIPPET 65 ===
+constrequest =require( 'supertest' );
+constapp =require( '../app' );
+describe( 'Books API' ,()=>{
+test('GET /books returns JSON array' ,async()=>{
+constres=awaitrequest(app).get( '/books' );
+expect(res.statusCode).toBe( 200);
+expect( Array.isArray(res.body)).toBe( true);
+});
+
+=== SNIPPET 66 ===
+test('POST /books creates a new book' ,async()=>{
+constnewBook ={title:'Test Book' ,author:'Jane Doe' };
+constres=awaitrequest(app)
+.post('/books' )
+.send(newBook);
+expect(res.statusCode).toBe( 201);
+expect(res.body).toMatchObject(newBook);
+});
+});
+
+=== SNIPPET 67 ===
+const{body,validationResult }=require( 'express-validator' );
+
+=== SNIPPET 68 ===
+app.post( '/submit' ,[
+// Validate and sanitize
+body('username' )
+.trim()
+.isAlphanumeric().withMessage( 'Username must be letters and numbers' )
+.escape(),
+body('email' )
+.isEmail().withMessage( 'Must be a valid email' )
+.normalizeEmail(),
+body('comment' )
+.trim()
+.escape()
+],(req,res)=>{
+consterrors =validationResult(req);
+if(!errors.isEmpty()) {
+return res.status( 400).json({ errors:errors.array() });
+}
+// proceed with safe data
+});
+
+=== SNIPPET 69 ===
+// app.js
+constexpress =require( 'express' );
+constuserRoutes =require( './routes/userRoutes' );
+consterrorHandler =require( './middleware/errorHandler' );
+constapp=express();
+app.use(express.json());
+app.use( '/api/users' ,userRoutes);
+app.use(errorHandler);
+module.exports =app;
+// server.js
+constapp=require( './app' );
+
+=== SNIPPET 70 ===
+app.listen(PORT, ()=>{
+console.log( `Server running on port ${PORT}`);
+});
+
+=== SNIPPET 71 ===
+•Utilities: dotenv, bcryptjs, cors
+
+=== SNIPPET 72 ===
+npminstall express mongoose dotenv jsonwebtoken bcryptjs cors
+
+=== SNIPPET 73 ===
+constexpress =require( 'express' );
+constmongoose =require( 'mongoose' );
+require( 'dotenv' ).config();
+constapp=express();
+app.use(express.json());
+
+=== SNIPPET 74 ===
+app.use(require( 'cors')());
+constPORT=process.env.PORT ||5000;
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser :true,useUnifiedTopology :true})
+.then(() =>app.listen(PORT, ()=>
+console.log( `Server running on port ${PORT}`)
+))
+.catch(err=>console.error(err));
+
+=== SNIPPET 75 ===
+constmongoose =require( 'mongoose' );
+constuserSchema =newmongoose.Schema({
+name:{type:String,required :true},
+email:{type:String,required :true,unique:true},
+password :{type:String,required :true}
+});
+module.exports =mongoose.model( 'User',userSchema);
+Following demonstrates controller logic ( controllers/userController.js )
+constUser=require( '../models/userModel' );
+exports.getAllUsers =async(req,res)=>{
+constusers=awaitUser.find();
+res.json(users);
+};
+exports.getUserById =async(req,res)=>{
+constuser=awaitUser.findById(req.params.id);
+if(!user)return res.status( 404).send( 'User not found' );
+
+=== SNIPPET 76 ===
+res.json(user);
+};
+exports.createUser =async(req,res)=>{
+constnewUser =newUser(req.body);
+awaitnewUser.save();
+res.status( 201).json(newUser);
+};
+exports.updateUser =async(req,res)=>{
+constupdated =awaitUser.findByIdAndUpdate(
+req.params.id, req.body, {new:true}
+);
+res.json(updated);
+};
+exports.deleteUser =async(req,res)=>{
+awaitUser.findByIdAndDelete(req.params.id);
+res.send( 'User deleted' );
+};
+Following demonstrates route definitions ( routes/userRoutes.js )
+constexpress =require( 'express' );
+constrouter =express.Router();
+constctrl =require( '../controllers/userController' );
+router.get( '/',ctrl.getAllUsers);
+router.get( '/:id',ctrl.getUserById);
+router.post( '/',ctrl.createUser);
+router.put( '/:id',ctrl.updateUser);
+router. delete('/:id',ctrl.deleteUser);
+module.exports =router;
+
+=== SNIPPET 77 ===
+constuserRoutes =require( './routes/userRoutes' );
+
+=== SNIPPET 78 ===
+app.use( '/api/users' ,userRoutes);
+
+=== SNIPPET 79 ===
+constbcrypt =require( 'bcryptjs' );
+constjwt =require( 'jsonwebtoken' );
+constUser =require( '../models/userModel' );
+exports.register =async(req,res)=>{
+const{name,email, password }=req.body;
+consthash=awaitbcrypt.hash(password, 10);
+awaitUser.create({ name,email, password :hash});
+res.status( 201).json({ message :'Registered' });
+};
+exports.login =async(req,res)=>{
+const{email, password }=req.body;
+constuser=awaitUser.findOne({ email});
+if(!user||!(awaitbcrypt.compare(password, user.password))) {
+return res.status( 401).send( 'Invalid credentials' );
+}
+consttoken=jwt.sign(
+{id:user._id },process.env.JWT_SECRET, {expiresIn :'1h'}
+);
+res.json({ token});
+};
+Following demonstrates auth middleware( middleware/authMiddleware.js )
+constjwt=require( 'jsonwebtoken' );
+module.exports =(req,res,next)=>{
+constauth=req.headers[ 'authorization' ];
+if(!auth)return res.status( 403).send( 'Token required' );
+
+=== SNIPPET 80 ===
+req.user =jwt.verify(token, process.env.JWT_SECRET);
+next();
+}catch{
+res.status( 401).send( 'Invalid token' );
+}
+};
+
+=== SNIPPET 81 ===
+constauth=require( '../middleware/authMiddleware' );
+router.get( '/',auth,ctrl.getAllUsers);
+

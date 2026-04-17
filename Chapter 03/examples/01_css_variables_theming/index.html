@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Variables & Theme Switch</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">Theme Demo</div>
+    <button id="toggle" class="btn" type="button">Toggle Theme</button>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>CSS Variables</h1>
+      <p>
+        This page uses <code>:root</code> variables for colors, spacing, and radius.
+        A small script toggles a <code>data-theme</code> attribute.
+      </p>
+      <div class="chips">
+        <span class="chip">--bg</span>
+        <span class="chip">--text</span>
+        <span class="chip">--accent</span>
+        <span class="chip">--radius</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const btn = document.getElementById("toggle");
+    btn.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+    });
+  </script>
+</body>
+</html>

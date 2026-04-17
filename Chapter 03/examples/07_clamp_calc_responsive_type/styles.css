@@ -1,0 +1,22 @@
+*{ box-sizing:border-box; }
+body{ margin:0; font-family: Arial, sans-serif; background:#f8fafc; color:#0f172a; }
+
+.wrap{ max-width: 980px; margin: 22px auto; padding: 0 16px 40px; }
+h1{
+  font-size: clamp(30px, 3vw, 52px);
+  margin-bottom: 6px;
+}
+.lead{
+  font-size: clamp(16px, 1.3vw, 20px);
+  color:#475569;
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+.panel{
+  margin-top: 14px;
+  padding: calc(12px + 1.2vw);
+  background:#fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}

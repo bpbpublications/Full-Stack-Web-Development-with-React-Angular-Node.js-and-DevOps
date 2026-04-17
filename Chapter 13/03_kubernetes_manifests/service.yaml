@@ -1,0 +1,12 @@
+# 03_kubernetes_manifests/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: chapter13-web
+  ports:
+    - port: 80
+      targetPort: 3000

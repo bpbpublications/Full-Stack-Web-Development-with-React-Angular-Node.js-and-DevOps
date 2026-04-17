@@ -1,0 +1,30 @@
+# 06_git_and_deployment/git_commands_cheatsheet.txt
+
+# Core Git commands mentioned in the chapter
+
+# Initialize a new repository
+git init
+
+# Stage and commit changes
+git add .
+git commit -m "Initial commit"
+
+# Create and switch to a new branch
+git branch feature/api-integration
+git switch feature/api-integration
+# (Older syntax)
+# git checkout -b feature/api-integration
+
+# View branches
+git branch
+
+# Merge a feature branch into main
+git switch main
+git merge feature/api-integration
+
+# Push to GitHub
+git remote add origin https://github.com/yourname/yourrepo.git
+git push -u origin main
+
+# Pull latest changes
+git pull

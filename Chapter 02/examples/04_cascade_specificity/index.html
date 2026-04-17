@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cascade & Specificity</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Internal CSS -->
+  <style>
+    /* Internal rule overrides external when specificity ties and it comes later */
+    .title { color: #2563eb; } /* class selector */
+  </style>
+</head>
+<body>
+  <h1 class="title" id="mainTitle" style="color:#16a34a;">
+    Cascade & Specificity
+  </h1>
+
+  <p class="desc">
+    Inline style wins here (green), then internal (blue), then external (red).
+  </p>
+
+  <p class="desc highlight" id="special">
+    ID selectors are more specific than class selectors.
+  </p>
+</body>
+</html>

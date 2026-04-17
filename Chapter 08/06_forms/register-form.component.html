@@ -1,0 +1,44 @@
+<h2>Reactive Registration Form</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name</label>
+    <input formControlName="name" />
+    <div *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)" class="error">
+      <small *ngIf="f['name'].errors?.['required']">Name is required.</small>
+      <small *ngIf="f['name'].errors?.['minlength']">Name is too short.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Email</label>
+    <input formControlName="email" />
+    <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="error">
+      <small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+      <small *ngIf="f['email'].errors?.['email']">Enter a valid email.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>Password</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="error">
+      <small *ngIf="f['password'].errors?.['required']">Password is required.</small>
+      <small *ngIf="f['password'].errors?.['minlength']">Password too short.</small>
+    </div>
+  </div>
+
+  <div>
+    <label>
+      <input type="checkbox" formControlName="agree" />
+      I agree to the terms.
+    </label>
+    <div *ngIf="f['agree'].invalid && (f['agree'].dirty || f['agree'].touched)" class="error">
+      <small>You must agree before submitting.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Register</button>
+
+  <p *ngIf="submitted && form.valid">Form submitted. Check console log.</p>
+</form>

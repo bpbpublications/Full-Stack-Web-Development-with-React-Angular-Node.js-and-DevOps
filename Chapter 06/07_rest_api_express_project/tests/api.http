@@ -1,0 +1,27 @@
+### Health
+GET http://localhost:3007/api/health
+
+### List products
+GET http://localhost:3007/api/products
+
+### Create product
+POST http://localhost:3007/api/products
+Content-Type: application/json
+
+{
+  "name": "Pen",
+  "price": 20,
+  "tags": ["stationery"]
+}
+
+### Update product 1
+PUT http://localhost:3007/api/products/1
+Content-Type: application/json
+
+{
+  "price": 55,
+  "tags": ["stationery","office"]
+}
+
+### Delete product 2
+DELETE http://localhost:3007/api/products/2

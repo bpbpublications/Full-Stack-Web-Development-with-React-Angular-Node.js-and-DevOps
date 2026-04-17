@@ -1,0 +1,26 @@
+.container {
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li.done span {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.filters {
+  margin-top: 16px;
+}
+
+button {
+  padding: 8px 12px;
+  margin: 0 4px;
+  cursor: pointer;
+}

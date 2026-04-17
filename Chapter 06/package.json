@@ -1,0 +1,24 @@
+{
+  "name": "chapter-06-web-technology-fundamentals",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start:http": "node 01_http_basics/server-http.js",
+    "start:flow": "node 02_request_response_cycle/flow-server.js",
+    "start:https": "node 03_https_demo/server-https.js",
+    "start:cookies": "node 04_cookies_sessions/cookie-server.js",
+    "start:sessions": "node 04_cookies_sessions/session-server.js",
+    "start:headers": "node 05_headers_cache/headers-demo.js",
+    "start:cors:api": "node 06_cors/api-server.js",
+    "start:cors:web": "node 06_cors/web-client/server-static.js",
+    "start:rest": "node 07_rest_api_express_project/server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "morgan": "^1.10.0"
+  }
+}

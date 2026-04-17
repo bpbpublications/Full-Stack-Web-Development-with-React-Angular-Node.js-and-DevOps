@@ -1,0 +1,9 @@
+<h2>Pipes Demo</h2>
+<p>Original: {{ course }}</p>
+<p>Custom title pipe: {{ course | customTitle }}</p>
+
+<p>Today (date): {{ today | date:'mediumDate' }}</p>
+<p>Now (time): {{ today | date:'shortTime' }}</p>
+
+<p>Price (number): {{ price | number:'1.2-2' }}</p>
+<p>Price (currency): {{ price | currency:'INR' }}</p>

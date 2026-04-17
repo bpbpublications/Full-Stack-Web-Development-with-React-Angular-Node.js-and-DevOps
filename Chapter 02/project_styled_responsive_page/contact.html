@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="navbar">
+      <div class="brand">CSS Studio</div>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero-card">
+      <h1>Contact</h1>
+      <p style="color: var(--muted); line-height:1.7; margin-top:10px;">
+        This form uses focus styles and spacing to stay readable and user-friendly.
+      </p>
+
+      <form class="form">
+        <div>
+          <label for="name">Full name</label>
+          <input id="name" type="text" placeholder="Enter name" />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="name@example.com" />
+        </div>
+
+        <div>
+          <label for="msg">Message</label>
+          <textarea id="msg" rows="4" placeholder="Write message"></textarea>
+        </div>
+
+        <button type="button">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 CSS Studio</p>
+  </footer>
+</body>
+</html>

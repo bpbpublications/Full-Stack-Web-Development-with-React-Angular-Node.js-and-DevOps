@@ -1,0 +1,226 @@
+=== SNIPPET 0 ===
+docker build-tmy-node-app .
+3. Run the Container:
+docker run-p3000:3000my-node-app
+
+=== SNIPPET 1 ===
+a ‘docker-compose.yml‘ file to configure application services.
+Example: Docker Compose File
+version :"3"
+services :
+web:
+build:.
+ports:
+-"3000:3000 "
+depends_on :
+
+=== SNIPPET 2 ===
+image:postgres
+environment :
+POSTGRES_USER :user
+POSTGRES_PASSWORD :pass
+POSTGRES_DB :mydb
+Run the application using:
+docker-compose up
+
+=== SNIPPET 3 ===
+kind:Deployment
+metadata :
+name:webapp-deployment
+spec:
+replicas :2
+selector :
+
+=== SNIPPET 4 ===
+spec:
+containers :
+-name:webapp
+image:my-node-app:latest
+ports:
+-containerPort :3000
+Applywith:
+kubectl apply-fdeployment.yaml
+
+=== SNIPPET 5 ===
+kind:Service
+metadata :
+name:webapp-service
+spec:
+selector :
+app:webapp
+type:LoadBalancer
+ports:
+-port:80
+targetPort :3000
+Applywith:
+kubectl apply-fservice.yaml
+
+=== SNIPPET 6 ===
+•kubectl get pods – List running pods
+•kubectl get svc – List services and external IPs
+
+=== SNIPPET 7 ===
+•kubectl scale deployment – Manually adjust replica count
+•kubectl rollout undo – Roll back to a previous deployment revision
+
+=== SNIPPET 8 ===
+sh'npm install'
+}
+}
+stage('Build' ){
+steps{
+sh'npm run build'
+}
+}
+stage('Test'){
+steps{
+sh'npm test'
+}
+}
+stage('Deploy' ){
+steps{
+sh'./deploy.sh'
+}
+}
+}
+
+=== SNIPPET 9 ===
+kubectl scale deployment
+
+=== SNIPPET 10 ===
+-run:npm install
+-run:npm test
+-run:npm run build
+
+=== SNIPPET 11 ===
+•ErrorRates Track HTTP 5xx/4xx responses to identify spikes in failures.
+
+=== SNIPPET 12 ===
+winstonis a popular Node.js library for this purpose.
+
+=== SNIPPET 13 ===
+npminstall winston
+
+=== SNIPPET 14 ===
+const{createLogger, format, transports }=require( 'winston' );
+constlogger =createLogger({
+level:'info',
+format:format.combine(
+format.timestamp(),
+format.json()
+),
+transports :[
+newtransports.File({ filename :'logs/error.log' ,level:'error' }),
+newtransports.File({ filename :'logs/combined.log' }),
+newtransports.Console({ format:format.simple() })
+],
+});
+module.exports =logger;
+
+=== SNIPPET 15 ===
+constlogger =require( './logger' );
+app.use((req, res,next)=>{
+logger.info( 'Incoming request' ,{method:req.method, url:req.url });
+next();
+});
+app.get( '/',(req,res)=>{
+logger.debug( 'Handling root route' );
+res.send( 'Hello World' );
+});
+
+=== SNIPPET 16 ===
+npminstall prom-client
+
+=== SNIPPET 17 ===
+constexpress =require( 'express' );
+constclient =require( 'prom-client' );
+client.collectDefaultMetrics();
+consthttpRequestDurationMicroseconds =newclient.Histogram({
+name:'http_request_duration_ms' ,
+help:'Duration of HTTP requests in ms' ,
+labelNames :['method' ,'route' ,'status_code' ],
+buckets :[50,100,200,500,1000]
+});
+
+=== SNIPPET 18 ===
+constapp=express();
+app.use((req, res,next)=>{
+constend=httpRequestDurationMicroseconds.startTimer();
+res.on( 'finish' ,()=>{
+end({method:req.method, route:req.path, status_code :res.statusCode });
+});
+next();
+});
+app.get( '/metrics' ,async(req,res)=>{
+res.set( 'Content-Type' ,client.register.contentType);
+res.end( awaitclient.register.metrics());
+});
+app.listen( 3000,()=>logger.info( 'Metrics server on port 3000' ));
+
+=== SNIPPET 19 ===
+constexpress =require( 'express' );
+constapp=express();
+constPORT=process.env.PORT ||3000;
+app.get( '/',(req,res)=>{
+res.send( 'Hello, DevOps World!' );
+});
+app.listen(PORT, ()=>{
+console.log( `Server is running on port ${PORT}`);
+});
+
+=== SNIPPET 20 ===
+docker build-tnode-api .
+docker run-d-p3000:3000node-api
+
+=== SNIPPET 21 ===
+uses:docker/setup-buildx-action@v2
+-name:Login to Registry
+uses:docker/login-action@v2
+with:
+registry :docker.io
+username :${{ secrets.DOCKER_USERNAME }}
+password :${{ secrets.DOCKER_PASSWORD }}
+-name:Build and push image
+uses:docker/build-push-action@v4
+with:
+push:true
+tags:docker.io/username/node-api:latest
+
+=== SNIPPET 22 ===
+steps{sh'npm install' }
+}
+stage('Docker Build' ){
+steps{sh'docker build -t username/node-api .' }
+}
+stage('Docker Push' ){
+steps{
+withCredentials ([usernamePassword (
+credentialsId: 'docker-hub' ,
+usernameVariable: 'DOCKER_USER' ,
+passwordVariable: 'DOCKER_PASS' )]){
+sh'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+sh'docker push username/node-api'
+}
+}
+}
+}
+}
+
+=== SNIPPET 23 ===
+•Write a Dockerfile for your Node.js or Python app.
+
+=== SNIPPET 24 ===
+docker run commands.
+5.LongAnswer: OutlinethestepsrequiredtocreateaGitHubActionsworkflowthatbuildsa
+
+=== SNIPPET 25 ===
+•DockerDocumentation :https://docs.docker.com/
+•Kubernetes Documentation :https://kubernetes.io/docs/home/
+•Git and GitHub Guides :https://docs.github.com/en/get-started
+
+=== SNIPPET 26 ===
+A special function that lets developers “hook into” React features such as state and lifecycle
+
+=== SNIPPET 27 ===
+vancedfeatures.
+

@@ -1,0 +1,320 @@
+=== SNIPPET 0 ===
+render data from servers without full-page reloads. We then examine techniques for consum-
+
+=== SNIPPET 1 ===
+referstothetechniqueofusingJavaScript(via fetch()orXMLHttpRequest )tosendandreceivedata.
+
+=== SNIPPET 2 ===
+fetch('https://api.example.com/users' )
+.then(response =>response.json())
+.then(data =>{
+console.log( 'User Data:' ,data);
+// Update DOM elements here
+})
+.catch(error =>console.error( 'Fetch error:' ,error));
+
+=== SNIPPET 3 ===
+•fetch()returns a Promise that resolvesto a Response .
+•response.json() parses the body as JSON.
+•catch()handles network or parsing errors.
+
+=== SNIPPET 4 ===
+xhr.onreadystatechange =function (){
+if(xhr.readyState ===4&&xhr.status ===200){
+vardata=JSON.parse(xhr.responseText);
+console.log( "User Data:" ,data);
+}
+};
+xhr.send();
+
+=== SNIPPET 5 ===
+Following demonstrates fetching and rendering user list dynamically
+<!DOCTYPE html>
+<html>
+<head><title>AJAX Example</ title></head>
+<body>
+<h2>User List</ h2>
+<ulid="userList" ></ul>
+<script>
+fetch('https://jsonplaceholder.typicode.com/users' )
+.then(res =>res.json())
+.then(users =>{
+constul=document .getElementById( 'userList' );
+users.forEach(u =>{
+constli=document .createElement( 'li');
+li.textContent =`${u.name}–${u.email }`;
+ul.appendChild(li);
+});
+})
+.catch(err=>console.error( 'Error:' ,err));
+</script>
+</body>
+</html>
+
+=== SNIPPET 6 ===
+fetch('https://jsonplaceholder.typicode.com/posts' )
+.then(res =>res.json())
+.then(posts =>{
+constul=document .createElement( 'ul');
+document .body.appendChild(ul);
+posts.forEach(p =>{
+constli=document .createElement( 'li');
+li.innerHTML =`<strong> ${p.title }</strong><p> ${p.body}</p>`;
+ul.appendChild(li);
+});
+})
+.catch(err=>console.error( 'Error:' ,err));
+
+=== SNIPPET 7 ===
+fetch('https://api.openweathermap.org/data/2.5/weather'
++'?q=London&appid=YOUR_API_KEY' )
+.then(res =>{
+if(!res.ok) thrownewError('Network response was not ok' );
+return res.json();
+})
+.then(data =>{
+console.log( 'Weather Data:' ,data);
+})
+.catch(err=>console.error( 'Fetch error:' ,err));
+
+=== SNIPPET 8 ===
+import axiosfrom'axios' ;
+axios.get( 'https://api.github.com/users/octocat' )
+.then(resp =>console.log( 'GitHub User:' ,resp.data))
+.catch(err=>console.error( 'Axios error:' ,err));
+
+=== SNIPPET 9 ===
+constfetch=require( 'node-fetch' );
+asyncfunction getBitcoinPrice() {
+
+=== SNIPPET 10 ===
+constres=awaitfetch(
+'https://api.coindesk.com/v1/bpi/currentprice.json'
+);
+constjson=awaitres.json();
+console.log( 'BTC Price (USD):' ,json.bpi.USD.rate);
+}catch(error) {
+console.error( 'Error fetching price:' ,error);
+}
+}
+getBitcoinPrice();
+
+=== SNIPPET 11 ===
+axios.get( 'https://api.example.com/data' ,{
+headers :{'Authorization' :'ApiKey YOUR_API_KEY' }
+});
+
+=== SNIPPET 12 ===
+2.User authenticates and authorizes the app.
+
+=== SNIPPET 13 ===
+fetch('https://api.example.com/profile' ,{
+headers :{'Authorization' :'Bearer YOUR_JWT_TOKEN' }
+});
+
+=== SNIPPET 14 ===
+fetch('https://api.example.com/login' ,{
+headers :{
+'Authorization' :'Basic ' +btoa('user:password' )
+}
+});
+
+=== SNIPPET 15 ===
+•Honor provider rate limits and implement exponential backoff on failures.
+
+=== SNIPPET 16 ===
+asyncfunction showTemperature(city) {
+try{
+constres=awaitfetch(
+`https://api.openweathermap.org/data/2.5/weather `
++`?q=${city}&appid=YOUR_API_KEY&units=metric `
+);
+if(!res.ok) thrownewError('City not found' );
+const{main}=awaitres.json();
+console.log( `Temperature in ${city}:${main.temp }°C`);
+}catch(err){
+console.error(err.message);
+}
+}
+showTemperature( 'London' );
+
+=== SNIPPET 17 ===
+•git diff to view unstaged changes.
+•git reset HEAD <file> tounstage a file.
+•git revert <commit> tocreate a new commit that undoes an earlier one.
+•git rm <file> to remove files and stage the removal.
+•git stash to temporarily save uncommitted changes.
+
+=== SNIPPET 18 ===
+run:npm install
+
+=== SNIPPET 19 ===
+run:npm test
+
+=== SNIPPET 20 ===
+2.Sign in at https://render.com and link your repository.
+
+=== SNIPPET 21 ===
+// index.js
+require( 'dotenv' ).config();
+constexpress =require( 'express' );
+constapp=express();
+constport=process.env.PORT ||3000;
+app.listen(port, ()=>{
+console.log( `Server listening on port ${port}`);
+});
+
+=== SNIPPET 22 ===
+constmorgan =require( 'morgan' );
+app.use(morgan( 'combined' ));// logs requests in Apache combined format
+
+=== SNIPPET 23 ===
+app.get( '/health' ,(req,res)=>{
+res.json({ status:'OK',uptime:process.uptime() });
+});
+
+=== SNIPPET 24 ===
+// metrics.js
+constclient =require( 'prom-client' );
+constcollectDefaultMetrics =client.collectDefaultMetrics;
+collectDefaultMetrics({ timeout :5000});
+// In your app:
+app.get( '/metrics' ,async(req,res)=>{
+res.set( 'Content-Type' ,client.register.contentType);
+res.end( awaitclient.register.metrics());
+});
+
+=== SNIPPET 25 ===
+<script>fetch( '/steal?cookie=' +document .cookie)</ script>
+•Cross-Site Request Forgery(CSRF)
+
+=== SNIPPET 26 ===
+const{body}=require( 'express-validator' );
+app.post( '/submit' ,[
+body('email' ).isEmail().normalizeEmail(),
+body('name').trim().escape()
+],(req,res)=>{
+// handle request
+});
+
+=== SNIPPET 27 ===
+constbcrypt =require( 'bcrypt' );
+consthash=awaitbcrypt.hash(password, 12);
+
+=== SNIPPET 28 ===
+consthelmet =require( 'helmet' );
+app.use(helmet());
+
+=== SNIPPET 29 ===
+Prevent XSS byencoding user-generated content before rendering in views.
+
+=== SNIPPET 30 ===
+Regularly run npm audit and update libraries. Employ automated tools like Dependabot to
+
+=== SNIPPET 31 ===
+willlearn howto fetchand renderdataasynchronously, manageenvironment variablessecurely,
+
+=== SNIPPET 32 ===
+•Node.js and npm for package management and scripts
+•React (bootstrapped with Viteor Create ReactApp)
+
+=== SNIPPET 33 ===
+useEffect hookandAxios toissue HTTP GET requests and update state.
+
+=== SNIPPET 34 ===
+import React, {useState, useEffect }from'react' ;
+import axiosfrom'axios' ;
+
+=== SNIPPET 35 ===
+function Weather() {
+const[data, setData] =useState( null);
+const[error, setError] =useState( null);
+constapiKey =import.meta.env.VITE_OPENWEATHER_API_KEY;
+constcity="Delhi" ;
+useEffect(() =>{
+axios.get(
+`https://api.openweathermap.org/data/2.5/weather `,
+{params:{q:city,appid:apiKey, units:'metric' }}
+)
+.then(res =>setData(res.data))
+.catch(err=>setError(err.message));
+},[]);
+if(error) return <p>Error:{error}</ p>;
+if(!data)return <p>Loading weather...</ p>;
+return (
+<div>
+<h2>Weather in{data.name}</ h2>
+<p>{data.weather[ 0].description}</ p>
+<p>Temperature :{data.main.temp}  °C</p>
+</div>
+);
+}
+export default Weather;
+This component initializes state, fetches data on mount, handles errors, and renders weather de-
+
+=== SNIPPET 36 ===
+1.Install VercelCLI: npm install -g vercel
+2.Runvercelin the project folder.
+
+=== SNIPPET 37 ===
+Stripeischosenforitsdeveloper-friendlyAPIsandbuilt-insecurityfeatures. ItusesHTTPS,PCI-
+
+=== SNIPPET 38 ===
+constexpress =require( "express" );
+constStripe =require( "stripe" );
+conststripe =Stripe(process.env.STRIPE_SECRET_KEY);
+constrouter =express.Router();
+router.post( "/create-payment-intent" ,async(req,res)=>{
+const{amount, currency }=req.body;
+try{
+constpaymentIntent =awaitstripe.paymentIntents.create({
+
+=== SNIPPET 39 ===
+res.send({ clientSecret :paymentIntent.client_secret });
+}catch(error) {
+res.status( 500).send({ error:error.message });
+}
+});
+module.exports =router;
+Step 3: Frontend Integration (React)
+
+=== SNIPPET 40 ===
+import {Elements, CardElement, useStripe, useElements }from"@stripe/react-stripe-js" ;
+import {loadStripe }from"@stripe/stripe-js" ;
+conststripePromise =loadStripe( import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+function CheckoutForm() {
+conststripe =useStripe();
+constelements =useElements();
+consthandleSubmit =async(event) =>{
+event.preventDefault();
+constcard=elements.getElement(CardElement);
+const{error, paymentMethod }=awaitstripe.createPaymentMethod({
+type:"card",
+
+=== SNIPPET 41 ===
+// Send to backend to create payment intent...
+};
+return (
+<formonSubmit ={handleSubmit}>
+<CardElement />
+<button type="submit" disabled ={!stripe}>Pay</ button>
+</form>
+);
+}
+function StripeCheckout() {
+return (
+<Elements stripe={stripePromise}>
+<CheckoutForm />
+</Elements >
+);
+}
+
+=== SNIPPET 42 ===
+export default StripeCheckout;
+
+=== SNIPPET 43 ===
+A.git branch <name>
+B.git switch <name>
+C.git checkout -b <name>
+D.git init <name>
+

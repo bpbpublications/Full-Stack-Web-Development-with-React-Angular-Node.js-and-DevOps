@@ -1,0 +1,25 @@
+body{ font-family: Arial, sans-serif; margin: 24px; background:#fff; }
+.muted{ color:#64748b; }
+.row{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 14px; }
+
+.swatch{
+  width: 180px;
+  height: 120px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  color:#0f172a;
+  border: 1px solid #e5e7eb;
+  font-weight: 800;
+}
+
+.hex{ background: #a7f3d0; } /* HEX */
+.rgba{ background: rgba(59, 130, 246, 0.35); } /* RGBA */
+.hsla{ background: hsla(45, 90%, 60%, 0.55); } /* HSLA */
+
+.opacity{
+  background: #ef4444;
+  opacity: 0.45; /* affects text too */
+}
